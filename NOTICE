@@ -1,0 +1,37 @@
+第三方组件与素材声明 / Third-Party Notices
+===========================================
+
+本项目包含或依赖以下第三方作品，它们各自的授权独立于本项目的
+MIT / CC BY-NC-SA 双重授权。
+
+1. Godot Engine
+   引擎本体，MIT License，© Godot Engine contributors
+   https://godotengine.org/license
+   本项目以 Godot 4.7.2 开发；导出产物内含引擎运行时，其授权仍为 MIT。
+
+2. Noto Sans SC / Noto Serif SC（思源黑体 / 思源宋体）
+   SIL Open Font License 1.1，© The Noto Project Authors
+   仓库内 `godot_poc/fonts/` 下为按游戏实际用字裁剪的子集，
+   授权全文见 `godot_poc/fonts/LICENSE-OFL.txt`。
+   OFL 允许随软件一起分发与嵌入，子集的裁剪不改变其授权。
+
+3. 字体子集化与图标拼装脚本
+   `godot_poc/tools/make_font_subset.py`、`godot_poc/tools/make_ico.py`
+   为本项目原创，适用 MIT。
+
+4. 生成式 AI 素材
+   角色立绘、卡面插画、背景图由生成式图像模型产出，再经人工筛选、
+   裁切、调色与统一风格处理。详见 README「素材与 AI 披露」一节。
+   这部分素材的法律状态在不同司法辖区不完全一致（部分辖区不承认纯
+   AI 输出享有著作权），本项目对其适用 CC BY-NC-SA 4.0 的声明仅覆盖
+   作者可主张权利的部分，即筛选、编排、裁切、调色等人工创作成分。
+
+5. 音频
+   背景音乐由 `godot_poc/audio/bgm.gd` 在运行时程序化合成，不含任何
+   第三方音频素材；音效由同一套合成逻辑产生。均为本项目原创（MIT）。
+
+---
+
+本项目为教育与科普性质的作品，不构成医疗建议。游戏中出现的症状、
+处置与就医建议仅用于呈现「信息如何被误解」这一主题，任何真实的健康
+问题请咨询执业医师。全文见 README「医疗免责」一节。

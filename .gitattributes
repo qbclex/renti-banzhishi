@@ -1,0 +1,17 @@
+# 统一按文本处理，.gd / .tscn / .py 用 LF 存盘
+* text=auto eol=lf
+
+# cmd.exe 只认 CRLF，且必须纯 ASCII
+*.bat text eol=crlf
+
+# 二进制，别让 git 试图做行尾转换或 diff
+*.png binary
+*.webp binary
+*.jpg binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.ctex binary
+*.res binary
+*.pck binary
+*.exe binary

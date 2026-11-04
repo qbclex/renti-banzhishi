@@ -1,0 +1,44 @@
+# ---------------- Godot ----------------
+# 导入缓存：每次打开编辑器都会重建，体积大且与本机相关
+.godot/
+# 导出产物
+build/
+*.pck
+*.exe
+*.log
+
+# ---------------- Python ----------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---------------- 生成物 / 中间产物 ----------------
+# 截图与商店图的中间渲染结果，跑 --shot / store_art 会重新生成
+godot_poc/_shots/
+godot_poc/_store/
+_backup/
+_entry_probe.bat
+
+# ---------------- 大体积素材原件 ----------------
+# art_src / chars_src / bg_src 是 AI 生成的原始大图（107MB + 39MB），
+# 含工具水印，且不是运行所必需——游戏用的是处理后的 chars/ bg/ cards/ icons/。
+godot_poc/assets/art_src/
+godot_poc/assets/chars_src/
+godot_poc/assets/bg_src/
+
+# 全量可变字重字体（41MB）。仓库只带子集（1.8MB），如需重做子集见 fonts/README.md
+godot_poc/fonts/*-VF.ttf
+godot_poc/fonts/*-VF.ttf.import
+
+# ---------------- 已废弃的早期网页原型 ----------------
+# 被 Godot 版取代，保留在本机作历史，不进仓库以免误导
+src/
+scenes/
+人体值班室.html
+网页版_双击这里.bat
+
+# ---------------- 系统 ----------------
+.DS_Store
+Thumbs.db
+desktop.ini
