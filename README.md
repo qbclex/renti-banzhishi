@@ -83,6 +83,7 @@ python -c "import engine; g,st = engine.simulate(seed=13); print(st['campaign'][
 ├── engine.py              参考实现：全部规则、随机、结算（纯 Python，无依赖）
 ├── content_full.py         内容单源：章节 / 班次 / 工单 / 处置签 / 抉择 / 奖励
 ├── gen_data_gd.py          内容 → godot_poc/data.gd，带交叉引用与可达性自检
+├── game.py / audio.py / poc_data.py   早期 tkinter 原型，已废弃，仅作留档
 ├── tools/parity_check.py   双引擎逐行比对
 ├── launch_godot.bat        从源码启动
 ├── build_win.bat           导出 + 自检 + 巡演，三道闸门跑完才算构建成功
@@ -195,7 +196,7 @@ CC BY-NC-SA 声明，只覆盖作者可主张权利的部分——即编排、�
 
 ## 已知限制
 
-- 只有简体中文。文本量大（约 6 万字），翻译是独立工程。
+- 只有简体中文。文本量约 1.9 万字（另有大量短文案），翻译是独立工程。
 - 仅键鼠操作，无手柄支持，Steam Deck 上体验不佳。
 - Windows 为主要目标平台；Linux/macOS 理论可跑（Godot 跨平台），但导出配置只写了 Windows。
 - 存档只有一个槽位。
