@@ -58,9 +58,13 @@ launch_godot.bat
 ```
 
 它会按 `%GODOT_BIN%` → PATH → 默认安装目录 的顺序找 Godot，**不写死任何人的本机路径**。
-Linux / macOS 直接：
+clone 下来第一次运行时，它会自动先做一次资源导入（生成 `.godot/` 缓存，约一分钟）——
+没有这步缓存，所有贴图和字体都会加载失败。
+
+Linux / macOS：
 
 ```bash
+godot --headless --path godot_poc --import   # 只需一次
 godot --path godot_poc
 ```
 
@@ -118,6 +122,13 @@ python gen_data_gd.py
 ```bash
 cd godot_poc && python -m unittest discover -s tests    # 45 例，约 40 秒
 cd .. && python tools/parity_check.py                   # 双引擎 8 种子逐行比对
+```
+
+刚 clone 下来、还没跑过游戏时，先执行一次资源导入，否则依赖引擎的用例会因为没有
+`.godot/` 缓存而失败（有 Godot 时）：
+
+```bash
+godot --headless --path godot_poc --import
 ```
 
 找不到 Godot 时，依赖引擎的用例自动 skip，静态断言照常跑——所以这个仓库在

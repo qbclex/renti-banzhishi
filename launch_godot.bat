@@ -67,6 +67,14 @@ rem read right after a parenthesised block is unreliable in cmd.
 set "ARGS="
 if not "%~1"=="" set "ARGS=-- %*"
 
+rem First run on a fresh clone: .godot/ (the import cache) does not exist yet,
+rem so every texture and font fails to load with "Cannot open file". Import
+rem once up front instead of letting the player stare at a broken first launch.
+if not exist "%PROJ%\.godot\imported" (
+    echo First run: importing assets, this takes about a minute ...
+    "%GODOT%" --headless --path "%PROJ%" --import >nul 2>&1
+)
+
 "%GODOT%" --path "%PROJ%" --verbose %ARGS% > "%PROJ%\godrun.log" 2>&1
 set "RC=%ERRORLEVEL%"
 if "%RC%"=="" set "RC=0"
