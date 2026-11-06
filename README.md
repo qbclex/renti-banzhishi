@@ -10,6 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC%20BY--NC--SA%204.0-lightgrey.svg)](LICENSE-CONTENT)
 [![Godot](https://img.shields.io/badge/Godot-4.7.2-478cbf.svg)](https://godotengine.org)
+[![Download](https://img.shields.io/badge/download-v1.1.0%20win64-brightgreen.svg)](https://github.com/qbclex/renti-banzhishi/releases/latest)
 
 ![封面](docs/screenshots/cover.png)
 
