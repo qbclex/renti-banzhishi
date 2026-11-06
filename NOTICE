@@ -27,8 +27,14 @@ MIT / CC BY-NC-SA 双重授权。
    作者可主张权利的部分，即筛选、编排、裁切、调色等人工创作成分。
 
 5. 音频
-   背景音乐由 `godot_poc/audio/bgm.gd` 在运行时程序化合成，不含任何
-   第三方音频素材；音效由同一套合成逻辑产生。均为本项目原创（MIT）。
+   背景音乐：`godot_poc/audio/bgm_forest.ogg`
+     曲名 "Cathedral in the forest (ambient loop)"
+     作者 congusbongus，来自 OpenGameArt.org
+     授权 CC0 1.0（公有领域，放弃全部权利，无署名义务）
+     https://opengameart.org/content/cathedral-in-the-forest-ambient-loop
+     文件未做任何修改，仅以原样随游戏分发。CC0 本身不要求署名，
+     此处列出出处是出于尊重，也方便他人追溯来源。
+   音效：由 `godot_poc/audio/sfx.gd` 在运行时程序化合成，不含第三方素材（MIT）。
 
 ---
 

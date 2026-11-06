@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![Content: CC BY-NC-SA 4.0](https://img.shields.io/badge/content-CC%20BY--NC--SA%204.0-lightgrey.svg)](LICENSE-CONTENT)
 [![Godot](https://img.shields.io/badge/Godot-4.7.2-478cbf.svg)](https://godotengine.org)
-[![Download](https://img.shields.io/badge/download-v1.1.0%20win64-brightgreen.svg)](https://github.com/qbclex/renti-banzhishi/releases/latest)
+[![Download](https://img.shields.io/badge/download-v1.1.1%20win64-brightgreen.svg)](https://github.com/qbclex/renti-banzhishi/releases/latest)
 
 ![封面](docs/screenshots/cover.png)
 
@@ -93,7 +93,7 @@ python -c "import engine; g,st = engine.simulate(seed=13); print(st['campaign'][
     ├── engine.gd           与 engine.py 逐位一致的移植
     ├── data.gd             生成物，不要手改
     ├── ui/                 界面层：只负责画和收输入，不含规则
-    ├── audio/              程序化合成 BGM 与音效，不含音频文件
+    ├── audio/              BGM 为 CC0 素材（congusbongus）+ 程序化合成音效
     ├── assets/             chars / bg / cards / icons（处理后可直接用）
     ├── fonts/              思源黑体 + 宋体子集（各约 1 MB）
     ├── tests/              45 例
@@ -178,7 +178,9 @@ godot --headless --path godot_poc --import
 ## 素材与 AI 披露
 
 角色立绘、卡面插画、背景图由**生成式图像模型**产出，再经人工筛选、裁切、调色和统一风格。
-全部写作、玩法设计、代码、测试，以及运行时程序化合成的音乐与音效，均为人工创作。
+全部写作、玩法设计、代码、测试，以及程序化合成的音效，均为人工创作。
+背景音乐是第三方 CC0 素材（congusbongus《Cathedral in the forest》，OpenGameArt），
+并非 AI 生成，具体出处与授权见 [NOTICE](NOTICE)。
 
 需要说明的是：纯 AI 输出在部分司法辖区不受著作权保护，所以本项目对这部分素材的
 CC BY-NC-SA 声明，只覆盖作者可主张权利的部分——即编排、裁切、调色这些人工加工。

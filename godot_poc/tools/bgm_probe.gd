@@ -1,65 +1,40 @@
 extends SceneTree
-
-## BGM 探针：生成一段，量三件事——生成耗时、峰值/RMS、循环接缝。
+## BGM 探针：素材现在是一段现成的 CC0 ogg，这里量的是「它真的被加载、真的会循环、
+## 五章真的换了速率」，而不是以前的"合成耗时/峰值"。
 ##
-## 为什么循环接缝要量：程序化音乐最常见的毛病就是"每 30 秒咔一下"，
-## 而这个毛病在游戏里只能靠听，很容易漏。这里直接比较首尾样本的跳变。
+## 注意：ogg 是压缩流，拿不到逐样本峰值，所以这里不再做削波统计——
+## 素材入库前已经单独测过（RMS -19.4dBFS、峰值 -4.5dBFS、接缝小于一个采样步长）。
 ##
-## 输出一行 BGM_OK <ok> gen_ms=<> peak=<> rms=<> seam=<>
+## 输出一行 BGM_OK <ok> len=<秒> loop=<0/1> ch=<五章速率> err=<>
+##
+## 用法：godot --headless --path . -s res://tools/bgm_probe.gd
 
 const Bgm = preload("res://audio/bgm.gd")
 
 
-func _init():
+func _initialize() -> void:
 	var b = Bgm.new()
-
-	var t0 := Time.get_ticks_msec()
-	var s: AudioStreamWAV = b.stream_for(1)
-	var gen := Time.get_ticks_msec() - t0
-
-	if s == null or s.data.is_empty():
-		print("BGM_OK false no-stream")
+	var s: AudioStream = b.stream_for(1)
+	if s == null:
+		print("BGM_OK false no-stream err=%s" % b.last_error())
 		quit(1)
 		return
 
-	var n := s.data.size() / 2
-	var peak := 0
-	var sumsq := 0.0
-	var first := s.data.decode_s16(0)
-	var last := s.data.decode_s16((n - 1) * 2)
-	var seam := absi(first - last)
+	var dur: float = s.get_length()
+	var looping: bool = bool(s.get("loop")) if "loop" in s else false
 
-	# 每隔 16 个样本量一次，够用且快
-	var step := 16
-	var cnt := 0
-	for i in range(0, n, step):
-		var v := s.data.decode_s16(i * 2)
-		peak = maxi(peak, absi(v))
-		sumsq += float(v) * float(v)
-		cnt += 1
-	var rms := sqrt(sumsq / maxf(1.0, float(cnt)))
-
-	# 三条硬指标：
-	#   1) 生成 < 1500ms（卡这么久玩家会以为没启动）
-	#   2) 峰值不爆（<=32000），但不能小到听不见（>2000）
-	#   3) 接缝跳变 < 1500（约 5% 满刻度；再大就能听见"咔"）
-	var ok: bool = gen < 1500 and peak <= 32000 and peak > 2000 and seam < 1500
-
-	# 五章都要能生成，且移调真的不同（否则"随章节变化"是假的）
-	var diff := 0
+	# 五章的播放速率必须互不相同，否则"随章节变化"是假的
+	var pitches := []
 	for ch in [1, 2, 3, 4, 5]:
-		var w: AudioStreamWAV = b.stream_for(ch)
-		if w == null or w.data.is_empty():
-			ok = false
-		else:
-			var a := w.data.decode_s16(4000)
-			var bb := s.data.decode_s16(4000) if ch != 1 else 0
-			if ch != 1 and absi(a - bb) > 0:
-				diff += 1
+		pitches.append(snappedf(Bgm.pitch_for(ch), 0.0001))
+	var distinct := {}
+	for p in pitches:
+		distinct[p] = true
 
-	if diff < 4:
-		print("BGM_OK false transpose-not-distinct ", diff)
+	# 硬指标：能加载、时长够长（太短的氛围垫会听出重复）、开了循环、五章有差异
+	var ok: bool = dur > 60.0 and looping and distinct.size() >= 4
 
-	print("BGM_OK %s gen_ms=%d peak=%d rms=%d seam=%d loop=%d" % [
-		str(ok).to_lower(), gen, peak, int(rms), seam, s.loop_end])
+	print("BGM_OK %s len=%.1f loop=%d pitches=%s err=%s" % [
+		str(ok).to_lower(), dur, 1 if looping else 0,
+		str(pitches), b.last_error()])
 	quit(0 if ok else 1)

@@ -145,7 +145,7 @@ func _ready() -> void:
 	sfx.attach(self)
 	sfx.volume = float(_settings.get("sfx", 0.72))
 
-	# BGM 在后台线程算，attach 之后立刻返回；算好之前 play_chapter 不响
+	# BGM 是一条 2.9MB 的 CC0 ogg，attach 时同步加载（毫秒级），不再走后台线程
 	bgm = Bgm.new()
 	bgm.attach(self)
 	bgm.set_enabled(float(_settings.get("music", 0.42)) > 0.005)
@@ -2489,6 +2489,10 @@ func _run_shots() -> void:
 func _quit_clean(code: int) -> void:
 	if sfx != null:
 		sfx.dispose()
+	# BGM 现在是一条从磁盘加载的 ogg，必须一起断引用：
+	# 只停播不清 stream，退出时会稳定报 2 个 resource still in use。
+	if bgm != null:
+		bgm.dispose()
 	await get_tree().process_frame
 	await get_tree().process_frame
 	get_tree().quit(code)
